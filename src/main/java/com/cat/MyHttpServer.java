@@ -1,4 +1,6 @@
-package com.mytomcat;
+package com.cat;
+
+import com.cat.servlet.http.MyHttpServletRequest;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -27,7 +29,7 @@ public class MyHttpServer {
 
     public void start(int port) throws Exception {
         System.err.println("start server.....");
-        ServerSocket serverSocket = new ServerSocket(port, 10, InetAddress.getByName("192.168.1.107"));
+        ServerSocket serverSocket = new ServerSocket(port, 10, InetAddress.getByName("localhost"));
         System.err.println("started server.....");
         while (!shutdown) {
             Socket socket = serverSocket.accept();

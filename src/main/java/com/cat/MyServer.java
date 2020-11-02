@@ -1,4 +1,4 @@
-package com.mytomcat;
+package com.cat;
 
 import java.io.*;
 import java.net.InetAddress;
