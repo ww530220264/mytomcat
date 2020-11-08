@@ -26,6 +26,48 @@ public class AppTest {
     }
 
     @Test
+    public void testDataGramClient(){
+        DatagramSocket socket = null;
+        try {
+            socket = new DatagramSocket();
+            byte[] bytes = "hello server".getBytes();
+            DatagramPacket packet = new DatagramPacket(bytes, bytes.length, InetAddress.getByName("localhost"), 9001);
+            socket.send(packet);
+            packet.setLength(bytes.length);
+            socket.receive(packet);
+            String s = new String(packet.getData(), packet.getOffset(), bytes.length);
+            System.err.println(s);
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            socket.close();
+        }
+    }
+
+    @Test
+    public void testDataGramServer(){
+        try {
+            DatagramSocket server = new DatagramSocket(9001, InetAddress.getByName("localhost"));
+            byte[] bytes = new byte[20];
+            DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
+            while (true){
+                server.receive(packet);
+                String s = new String(packet.getData(), packet.getOffset(), packet.getLength());
+                System.err.println(s);
+                String outmsg = "i got you: " + packet.getSocketAddress();
+                packet.setData(outmsg.getBytes());
+                server.send(packet);
+                packet.setLength(20);
+            }
+        }catch (Exception e){
+
+        }
+
+    }
+
+    // echo server
+    @Test
     public void echoServer() throws Exception {
         ServerSocket serverSocket = new ServerSocket();
         serverSocket.bind(new InetSocketAddress(InetAddress.getByName("localhost"), 9001), 2);
@@ -97,7 +139,7 @@ public class AppTest {
             }
         }
     }
-
+    // network interface
     @Test
     public void testNetworkInterfacae() throws SocketException, UnknownHostException {
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
@@ -118,6 +160,7 @@ public class AppTest {
         System.out.println(new String(byName.getAddress()));
     }
 
+    // serversocket
     @Test
     public void testServerSocket() throws IOException, InterruptedException {
         ServerSocket serverSocket = new ServerSocket(9001, 1024);
