@@ -1,5 +1,8 @@
 package my.cat.net;
 
+import lombok.Setter;
+
+import java.io.IOException;
 import java.util.concurrent.Executor;
 
 public abstract class AbstractEndpoint<S> {
@@ -25,13 +28,13 @@ public abstract class AbstractEndpoint<S> {
     private int acceptorThreadCount = 1;
     protected int acceptorThreadPriority = Thread.NORM_PRIORITY;
     private int maxConnections = 10000;
-    private Executor executor = null;
-    private int port;
+    protected Executor executor = null;
+    @Setter
+    protected int port;
     private int minSpareThreads = 10;
     private int maxThreads; // worker threads
     private int maxHeaderCount = 100;
     private int maxKeepAliveRequests=100;
-
-
-
+    protected abstract void bind() throws IOException;
+    protected abstract void start() throws Exception;
 }
