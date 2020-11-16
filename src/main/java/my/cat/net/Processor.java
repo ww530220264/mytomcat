@@ -12,5 +12,5 @@ import java.nio.channels.SelectionKey;
  **/
 public interface Processor {
 
-    void process(SelectionKey key) throws IOException;
+    boolean process(SelectionKey key) throws IOException;
 }

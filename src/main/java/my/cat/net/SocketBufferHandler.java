@@ -64,6 +64,7 @@ public class SocketBufferHandler {
             } else {
                 writeBuffer.flip();
             }
+            this.writeBufferConfiguredForWrite = writeBufferConfiguredForWrite;
         }
     }
 

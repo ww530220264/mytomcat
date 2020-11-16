@@ -12,7 +12,8 @@ import java.nio.channels.SelectionKey;
  **/
 public class AbstractProcessor implements Processor {
     @Override
-    public void process(SelectionKey key) throws IOException {
+    public boolean process(SelectionKey key) throws IOException {
         //NOOP
+        return false;
     }
 }

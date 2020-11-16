@@ -147,7 +147,10 @@ public class NioEndpoint extends AbstractEndpoint {
             Processor processor = processorCache.computeIfAbsent((SocketChannel) key.channel(),
                     socketChannel -> new Http11Processor());
             try {
-                processor.process(key);
+                boolean isCompleted = processor.process(key);
+//                if (isCompleted) {
+//                    processorCache.remove(key.channel());
+//                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
